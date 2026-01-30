@@ -6,6 +6,37 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
+  "typesVersions": {
+    "*": {
+      "helpers/beta/json-schema": [
+        "dist/helpers/beta/json-schema.d.ts"
+      ],
+      "helpers/beta/*": [
+        "dist/helpers/beta/*.d.ts"
+      ],
+      "helpers/*": [
+        "dist/helpers/*.d.ts"
+      ],
+      "resources/*": [
+        "dist/resources/*.d.ts"
+      ],
+      "resources": [
+        "dist/resources.d.ts"
+      ],
+      "lib/*": [
+        "dist/lib/*.d.ts"
+      ],
+      "core/*": [
+        "dist/core/*.d.ts"
+      ],
+      "_vendor/*": [
+        "dist/_vendor/*.d.ts"
+      ],
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
   "repository": "github:anthropics/anthropic-sdk-typescript",
   "license": "MIT",
   "packageManager": "yarn@1.22.22",
@@ -21,7 +52,7 @@
     "build": "./scripts/build-all",
     "prepublishOnly": "echo 'to publish, run yarn build && (cd dist; yarn publish)' && exit 1",
     "format": "./scripts/format",
-    "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build && ./scripts/utils/git-swap.sh; fi",
+    "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build && ./scripts/utils/git-swap.sh; fi && npm run build",
     "tsn": "ts-node -r tsconfig-paths/register",
     "lint": "./scripts/lint",
     "fix": "./scripts/format"
@@ -68,18 +99,335 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
-    "./*.mjs": {
-      "default": "./dist/*.mjs"
+    "./_vendor/*.mjs": {
+      "types": "./dist/_vendor/*.d.mts",
+      "default": "./dist/_vendor/*.mjs"
     },
-    "./*.js": {
-      "default": "./dist/*.js"
+    "./_vendor/*.js": {
+      "types": "./dist/_vendor/*.d.ts",
+      "default": "./dist/_vendor/*.js"
     },
-    "./*": {
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+    "./_vendor/*": {
+      "import": {
+        "types": "./dist/_vendor/*.d.mts",
+        "default": "./dist/_vendor/*.mjs"
+      },
+      "require": {
+        "types": "./dist/_vendor/*.d.ts",
+        "default": "./dist/_vendor/*.js"
+      },
+      "types": "./dist/_vendor/*.d.ts"
+    },
+    "./api-promise": {
+      "import": {
+        "types": "./dist/api-promise.d.mts",
+        "default": "./dist/api-promise.mjs"
+      },
+      "require": {
+        "types": "./dist/api-promise.d.ts",
+        "default": "./dist/api-promise.js"
+      },
+      "types": "./dist/api-promise.d.ts"
+    },
+    "./api-promise.js": {
+      "types": "./dist/api-promise.d.ts",
+      "default": "./dist/api-promise.js"
+    },
+    "./api-promise.mjs": {
+      "types": "./dist/api-promise.d.mts",
+      "default": "./dist/api-promise.mjs"
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.mts",
+        "default": "./dist/client.mjs"
+      },
+      "require": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      },
+      "types": "./dist/client.d.ts"
+    },
+    "./client.js": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    },
+    "./client.mjs": {
+      "types": "./dist/client.d.mts",
+      "default": "./dist/client.mjs"
+    },
+    "./core/*.mjs": {
+      "types": "./dist/core/*.d.mts",
+      "default": "./dist/core/*.mjs"
+    },
+    "./core/*.js": {
+      "types": "./dist/core/*.d.ts",
+      "default": "./dist/core/*.js"
+    },
+    "./core/*": {
+      "import": {
+        "types": "./dist/core/*.d.mts",
+        "default": "./dist/core/*.mjs"
+      },
+      "require": {
+        "types": "./dist/core/*.d.ts",
+        "default": "./dist/core/*.js"
+      },
+      "types": "./dist/core/*.d.ts"
+    },
+    "./error": {
+      "import": {
+        "types": "./dist/error.d.mts",
+        "default": "./dist/error.mjs"
+      },
+      "require": {
+        "types": "./dist/error.d.ts",
+        "default": "./dist/error.js"
+      },
+      "types": "./dist/error.d.ts"
+    },
+    "./error.js": {
+      "types": "./dist/error.d.ts",
+      "default": "./dist/error.js"
+    },
+    "./error.mjs": {
+      "types": "./dist/error.d.mts",
+      "default": "./dist/error.mjs"
+    },
+    "./helpers/*.mjs": {
+      "types": "./dist/helpers/*.d.mts",
+      "default": "./dist/helpers/*.mjs"
+    },
+    "./helpers/*.js": {
+      "types": "./dist/helpers/*.d.ts",
+      "default": "./dist/helpers/*.js"
+    },
+    "./helpers/*": {
+      "import": {
+        "types": "./dist/helpers/*.d.mts",
+        "default": "./dist/helpers/*.mjs"
+      },
+      "require": {
+        "types": "./dist/helpers/*.d.ts",
+        "default": "./dist/helpers/*.js"
+      },
+      "types": "./dist/helpers/*.d.ts"
+    },
+    "./helpers/beta/*.mjs": {
+      "types": "./dist/helpers/beta/*.d.mts",
+      "default": "./dist/helpers/beta/*.mjs"
+    },
+    "./helpers/beta/*.js": {
+      "types": "./dist/helpers/beta/*.d.ts",
+      "default": "./dist/helpers/beta/*.js"
+    },
+    "./helpers/beta/*": {
+      "import": {
+        "types": "./dist/helpers/beta/*.d.mts",
+        "default": "./dist/helpers/beta/*.mjs"
+      },
+      "require": {
+        "types": "./dist/helpers/beta/*.d.ts",
+        "default": "./dist/helpers/beta/*.js"
+      },
+      "types": "./dist/helpers/beta/*.d.ts"
+    },
+    "./helpers/beta/json-schema.js": {
+      "types": "./dist/helpers/beta/json-schema.d.ts",
+      "default": "./dist/helpers/beta/json-schema.js"
+    },
+    "./helpers/beta/json-schema.mjs": {
+      "types": "./dist/helpers/beta/json-schema.d.mts",
+      "default": "./dist/helpers/beta/json-schema.mjs"
+    },
+    "./helpers/beta/json-schema": {
+      "import": {
+        "types": "./dist/helpers/beta/json-schema.d.mts",
+        "default": "./dist/helpers/beta/json-schema.mjs"
+      },
+      "require": {
+        "types": "./dist/helpers/beta/json-schema.d.ts",
+        "default": "./dist/helpers/beta/json-schema.js"
+      },
+      "types": "./dist/helpers/beta/json-schema.d.ts"
+    },
+    "./index": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "types": "./dist/index.d.ts"
+    },
+    "./index.js": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./index.mjs": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./lib/*.mjs": {
+      "types": "./dist/lib/*.d.mts",
+      "default": "./dist/lib/*.mjs"
+    },
+    "./lib/*.js": {
+      "types": "./dist/lib/*.d.ts",
+      "default": "./dist/lib/*.js"
+    },
+    "./lib/*": {
+      "import": {
+        "types": "./dist/lib/*.d.mts",
+        "default": "./dist/lib/*.mjs"
+      },
+      "require": {
+        "types": "./dist/lib/*.d.ts",
+        "default": "./dist/lib/*.js"
+      },
+      "types": "./dist/lib/*.d.ts"
+    },
+    "./pagination": {
+      "import": {
+        "types": "./dist/pagination.d.mts",
+        "default": "./dist/pagination.mjs"
+      },
+      "require": {
+        "types": "./dist/pagination.d.ts",
+        "default": "./dist/pagination.js"
+      },
+      "types": "./dist/pagination.d.ts"
+    },
+    "./pagination.js": {
+      "types": "./dist/pagination.d.ts",
+      "default": "./dist/pagination.js"
+    },
+    "./pagination.mjs": {
+      "types": "./dist/pagination.d.mts",
+      "default": "./dist/pagination.mjs"
+    },
+    "./resource": {
+      "import": {
+        "types": "./dist/resource.d.mts",
+        "default": "./dist/resource.mjs"
+      },
+      "require": {
+        "types": "./dist/resource.d.ts",
+        "default": "./dist/resource.js"
+      },
+      "types": "./dist/resource.d.ts"
+    },
+    "./resource.js": {
+      "types": "./dist/resource.d.ts",
+      "default": "./dist/resource.js"
+    },
+    "./resource.mjs": {
+      "types": "./dist/resource.d.mts",
+      "default": "./dist/resource.mjs"
+    },
+    "./resources/*.mjs": {
+      "types": "./dist/resources/*.d.mts",
+      "default": "./dist/resources/*.mjs"
+    },
+    "./resources/*.js": {
+      "types": "./dist/resources/*.d.ts",
+      "default": "./dist/resources/*.js"
+    },
+    "./resources/*": {
+      "import": {
+        "types": "./dist/resources/*.d.mts",
+        "default": "./dist/resources/*.mjs"
+      },
+      "require": {
+        "types": "./dist/resources/*.d.ts",
+        "default": "./dist/resources/*.js"
+      },
+      "types": "./dist/resources/*.d.ts"
+    },
+    "./resources": {
+      "import": {
+        "types": "./dist/resources.d.mts",
+        "default": "./dist/resources.mjs"
+      },
+      "require": {
+        "types": "./dist/resources.d.ts",
+        "default": "./dist/resources.js"
+      },
+      "types": "./dist/resources.d.ts"
+    },
+    "./resources.js": {
+      "types": "./dist/resources.d.ts",
+      "default": "./dist/resources.js"
+    },
+    "./resources.mjs": {
+      "types": "./dist/resources.d.mts",
+      "default": "./dist/resources.mjs"
+    },
+    "./streaming": {
+      "import": {
+        "types": "./dist/streaming.d.mts",
+        "default": "./dist/streaming.mjs"
+      },
+      "require": {
+        "types": "./dist/streaming.d.ts",
+        "default": "./dist/streaming.js"
+      },
+      "types": "./dist/streaming.d.ts"
+    },
+    "./streaming.js": {
+      "types": "./dist/streaming.d.ts",
+      "default": "./dist/streaming.js"
+    },
+    "./streaming.mjs": {
+      "types": "./dist/streaming.d.mts",
+      "default": "./dist/streaming.mjs"
+    },
+    "./uploads": {
+      "import": {
+        "types": "./dist/uploads.d.mts",
+        "default": "./dist/uploads.mjs"
+      },
+      "require": {
+        "types": "./dist/uploads.d.ts",
+        "default": "./dist/uploads.js"
+      },
+      "types": "./dist/uploads.d.ts"
+    },
+    "./uploads.js": {
+      "types": "./dist/uploads.d.ts",
+      "default": "./dist/uploads.js"
+    },
+    "./uploads.mjs": {
+      "types": "./dist/uploads.d.mts",
+      "default": "./dist/uploads.mjs"
+    },
+    "./version": {
+      "import": {
+        "types": "./dist/version.d.mts",
+        "default": "./dist/version.mjs"
+      },
+      "require": {
+        "types": "./dist/version.d.ts",
+        "default": "./dist/version.js"
+      },
+      "types": "./dist/version.d.ts"
+    },
+    "./version.js": {
+      "types": "./dist/version.d.ts",
+      "default": "./dist/version.js"
+    },
+    "./version.mjs": {
+      "types": "./dist/version.d.mts",
+      "default": "./dist/version.mjs"
     }
   }
 }
